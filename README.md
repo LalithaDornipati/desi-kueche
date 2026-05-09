@@ -1,5 +1,3 @@
-# Desi Küche
-
 > **Indian recipes from your German pantry** — a single-file static web app, no backend, no API keys, no build step.
 
 Open `desi-kueche.html` in any browser. That's it.
