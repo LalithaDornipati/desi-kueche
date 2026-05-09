@@ -1,0 +1,896 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Desi Küche · Indian recipes from your German pantry</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  /* ============================================================
+     Color tokens
+     ============================================================ */
+  :root {
+    /* Surfaces */
+    --bg: #fdf8ee;
+    --paper: #fffaf0;
+    --card: #ffffff;
+    /* Text */
+    --ink: #2b1810;
+    --ink-soft: #6e5a48;
+    --line: #efe0c4;
+    /* Accents */
+    --terracotta: #ed5530;
+    --terracotta-dark: #b83613;
+    --saffron: #ffaf1f;
+    --turmeric: #f1bd0c;
+    --cardamom: #7eb33c;
+    --peacock: #2196b3;
+    --rose: #e8497a;
+    --chili: #d8362a;
+    /* Per-category accents */
+    --cat-puff: var(--saffron);
+    --cat-noodles: var(--terracotta);
+    --cat-curry: var(--rose);
+    --cat-dal: var(--turmeric);
+    --cat-khichdi: var(--cardamom);
+    --cat-sabzi: var(--peacock);
+    --cat-sides: var(--chili);
+    /* Per-section accents (ingredient groups) */
+    --sec-pulses: var(--turmeric);
+    --sec-veg: var(--cardamom);
+    --sec-protein: var(--rose);
+    --sec-dairy: var(--peacock);
+    --sec-whole: var(--terracotta);
+    --sec-ground: var(--chili);
+    --sec-misc: var(--ink-soft);
+    /* Effects */
+    --shadow-sm: 0 1px 3px rgba(43, 24, 16, 0.06);
+    --shadow-md: 0 2px 6px rgba(43, 24, 16, 0.08), 0 12px 28px rgba(43, 24, 16, 0.06);
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body { margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Manrope', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.55;
+    font-size: 16px;
+    background-image:
+      radial-gradient(ellipse 80% 40% at 20% 0%, rgba(255, 175, 31, 0.12), transparent),
+      radial-gradient(ellipse 60% 50% at 90% 50%, rgba(232, 73, 122, 0.06), transparent),
+      radial-gradient(ellipse 80% 40% at 50% 100%, rgba(33, 150, 179, 0.05), transparent);
+    background-attachment: fixed;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* paper grain */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.15;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.16 0 0 0 0 0.09 0 0 0 0 0.06 0 0 0 0.04 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    z-index: 1;
+  }
+
+  main { position: relative; z-index: 2; max-width: 1100px; margin: 0 auto; padding: 32px 20px 80px; }
+
+  /* Header */
+  header { text-align: center; margin-bottom: 48px; padding-top: 24px; }
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--terracotta);
+    margin-bottom: 8px;
+  }
+  h1 {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(48px, 9vw, 88px);
+    line-height: 0.95;
+    margin: 0 0 12px;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  h1 .amp { color: var(--terracotta); font-style: normal; }
+  .tagline {
+    font-size: 17px;
+    color: var(--ink-soft);
+    max-width: 540px;
+    margin: 0 auto;
+  }
+  .divider {
+    display: flex; align-items: center; justify-content: center;
+    gap: 12px; margin: 24px auto 0; color: var(--terracotta); opacity: 0.7;
+  }
+  .divider::before, .divider::after {
+    content: ''; height: 1px; width: 60px; background: currentColor;
+  }
+
+  /* Section heading */
+  .section-num {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--terracotta);
+    margin-right: 8px;
+  }
+  h2 {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 1.1;
+    margin: 0 0 24px;
+    color: var(--ink);
+  }
+  h3 {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-soft);
+    margin: 28px 0 12px;
+  }
+
+  /* Category dropdown */
+  .cat-field { margin-bottom: 40px; }
+  .cat-select-wrap {
+    position: relative;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    transition: border-color 0.18s ease, box-shadow 0.18s ease;
+  }
+  .cat-select-wrap:hover { border-color: var(--terracotta); }
+  .cat-select-wrap:focus-within {
+    border-color: var(--terracotta);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--terracotta) 18%, transparent);
+  }
+  .cat-select {
+    width: 100%;
+    padding: 18px 48px 18px 20px;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 22px;
+    color: var(--ink);
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+  .cat-select:invalid { color: var(--ink-soft); font-style: normal; font-size: 16px; font-family: inherit; }
+  .cat-select option { font-family: inherit; font-style: normal; font-size: 16px; padding: 8px; }
+  .cat-select-wrap::after {
+    content: '';
+    position: absolute;
+    right: 22px;
+    top: 50%;
+    width: 10px;
+    height: 10px;
+    border-right: 2px solid var(--ink-soft);
+    border-bottom: 2px solid var(--ink-soft);
+    transform: translateY(-70%) rotate(45deg);
+    pointer-events: none;
+  }
+  .cat-description {
+    margin-top: 12px;
+    padding: 0 4px;
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+    min-height: 20px;
+    transition: opacity 0.2s ease;
+  }
+  .cat-description.empty { opacity: 0; }
+
+  /* Back-to-top floating button */
+  .back-to-top {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--paper);
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 1;
+    box-shadow: var(--shadow-md);
+    opacity: 0;
+    transform: translateY(8px);
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease, background 0.18s ease;
+    z-index: 100;
+    font-family: inherit;
+  }
+  .back-to-top.visible {
+    opacity: 0.85;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .back-to-top:hover { background: var(--terracotta); opacity: 1; }
+  @media (max-width: 600px) {
+    .back-to-top { bottom: 16px; right: 16px; width: 42px; height: 42px; }
+  }
+
+  /* Options panel */
+  .panel {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 28px;
+    margin-bottom: 24px;
+  }
+  .panel.hidden { display: none; }
+
+  .field { margin-bottom: 20px; }
+  .field-label {
+    display: block;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-soft);
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  .pill-group {
+    display: flex; flex-wrap: wrap; gap: 8px;
+  }
+  .pill {
+    border: 1px solid var(--line);
+    background: #fff;
+    padding: 9px 16px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: inherit;
+    color: var(--ink);
+    transition: all 0.15s ease;
+    user-select: none;
+  }
+  .pill:hover { border-color: var(--terracotta); }
+  .pill.selected {
+    background: var(--ink);
+    color: var(--bg);
+    border-color: var(--ink);
+  }
+  .pill-de { font-weight: 500; }
+  .pill-en { font-size: 11px; opacity: 0.65; margin-left: 4px; }
+  .pill.selected .pill-en { opacity: 0.7; }
+
+  /* Generate button */
+  .actions { text-align: center; margin: 36px 0 8px; }
+  .btn-generate {
+    background: var(--terracotta);
+    color: var(--bg);
+    border: none;
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 22px;
+    padding: 14px 48px;
+    border-radius: 999px;
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+    transition: all 0.18s ease;
+    letter-spacing: 0.01em;
+  }
+  .btn-generate:hover:not(:disabled) {
+    background: var(--terracotta-dark);
+    transform: translateY(-1px);
+  }
+  .btn-generate:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  /* Output */
+  .output { margin-top: 48px; }
+  .output.hidden { display: none; }
+
+  .output-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  @media (min-width: 900px) {
+    .output-grid { grid-template-columns: 1.4fr 1fr; }
+  }
+
+  .recipe-card, .prompt-card {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 32px;
+    box-shadow: var(--shadow-md);
+    position: relative;
+    overflow: hidden;
+  }
+  .recipe-card::before, .prompt-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: var(--accent, var(--terracotta));
+  }
+  .recipe-card { --accent: var(--terracotta); }
+  .prompt-card { --accent: var(--ink); }
+
+  .recipe-title {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 36px;
+    line-height: 1.05;
+    margin: 0 0 4px;
+    color: var(--ink);
+  }
+  .recipe-sub {
+    font-size: 13px;
+    color: var(--accent, var(--terracotta));
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+  .recipe-meta {
+    display: flex; gap: 18px; flex-wrap: wrap;
+    font-size: 13px; color: var(--ink-soft);
+    padding: 14px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    margin: 16px 0 22px;
+  }
+  .recipe-meta span strong { color: var(--ink); }
+
+  /* Cultural-bridge callout — anchors the dish to a familiar German reference */
+  .cultural-note {
+    background: color-mix(in srgb, var(--saffron) 15%, transparent);
+    border-left: 3px solid var(--saffron);
+    padding: 12px 16px 12px 18px;
+    margin: 0 0 26px;
+    font-size: 14px;
+    color: var(--ink);
+    border-radius: 0 6px 6px 0;
+    line-height: 1.5;
+  }
+  .cultural-note strong {
+    color: var(--terracotta-dark);
+    font-weight: 600;
+    margin-right: 4px;
+  }
+
+  .ing-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px;
+    columns: 1;
+  }
+  @media (min-width: 600px) { .ing-list { columns: 2; column-gap: 28px; } }
+  .ing-list li {
+    padding: 5px 0 5px 14px;
+    border-bottom: 1px dashed var(--line);
+    font-size: 14px;
+    line-height: 1.5;
+    position: relative;
+    break-inside: avoid;
+  }
+  .ing-list li::before {
+    content: '·';
+    position: absolute; left: 0; top: 4px;
+    color: var(--accent, var(--terracotta));
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  /* Categorized ingredient sections */
+  .ing-sections-wrap {
+    columns: 1;
+    column-gap: 32px;
+    margin-bottom: 24px;
+  }
+  @media (min-width: 600px) {
+    .ing-sections-wrap { columns: 2; }
+  }
+  .ing-section {
+    margin-bottom: 22px;
+    break-inside: avoid;
+    --sec-color: var(--terracotta);
+  }
+  .ing-section:last-child { margin-bottom: 0; }
+  .ing-section-label {
+    font-family: 'Manrope', sans-serif;
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--sec-color);
+    font-weight: 700;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1.5px solid var(--sec-color);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .ing-section-icon { font-size: 14px; }
+  .ing-section .ing-list { columns: 1; margin-bottom: 0; }
+  .ing-section .ing-list li::before { color: var(--sec-color); }
+  .ing-en { color: var(--ink-soft); font-size: 12px; font-style: italic; }
+  .ing-optional { color: var(--ink-soft); font-style: italic; }
+  .ing-optional::after {
+    content: ' optional';
+    font-size: 10px;
+    background: var(--saffron);
+    color: var(--ink);
+    padding: 1px 6px;
+    border-radius: 8px;
+    margin-left: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+    font-style: normal;
+  }
+
+  .step {
+    display: flex; gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line);
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+  }
+  .step:last-child { border-bottom: none; }
+  .step-check {
+    flex-shrink: 0;
+    width: 26px; height: 26px;
+    border: 2px solid var(--ink);
+    border-radius: 50%;
+    background: transparent;
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 2px;
+    transition: all 0.18s ease;
+  }
+  .step.done .step-check {
+    background: var(--cardamom);
+    border-color: var(--cardamom);
+  }
+  .step.done .step-check::after {
+    content: '✓';
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  .step.done .step-text { opacity: 0.45; text-decoration: line-through; text-decoration-color: var(--ink-soft); }
+  .step-num {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    color: var(--accent, var(--terracotta));
+    font-size: 17px;
+    margin-right: 4px;
+  }
+  .step-text { font-size: 14.5px; line-height: 1.55; flex: 1; }
+  .step-tip {
+    background: rgba(232, 168, 56, 0.15);
+    border-left: 2px solid var(--saffron);
+    padding: 6px 10px;
+    margin-top: 8px;
+    font-size: 12.5px;
+    border-radius: 0 4px 4px 0;
+    color: var(--ink-soft);
+  }
+  .pairings {
+    margin-top: 22px;
+    padding: 14px 18px;
+    background: rgba(91, 124, 71, 0.08);
+    border-left: 3px solid var(--cardamom);
+    border-radius: 0 4px 4px 0;
+    font-size: 13.5px;
+  }
+  .pairings strong { color: var(--cardamom); }
+
+  /* Prompt card */
+  .prompt-title {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 26px;
+    margin: 0 0 4px;
+  }
+  .prompt-desc {
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-bottom: 18px;
+    line-height: 1.5;
+  }
+  .prompt-box {
+    background: var(--ink);
+    color: #e9dcc4;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    padding: 18px;
+    border-radius: 4px;
+    line-height: 1.65;
+    max-height: 320px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .prompt-actions {
+    display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px;
+  }
+  .btn {
+    border: 1px solid var(--ink);
+    background: #fff;
+    color: var(--ink);
+    padding: 9px 16px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.15s ease;
+  }
+  .btn:hover { background: var(--ink); color: var(--bg); }
+  .btn-primary {
+    background: var(--ink);
+    color: var(--bg);
+  }
+  .btn-primary:hover { background: var(--terracotta); border-color: var(--terracotta); }
+  .btn.copied { background: var(--cardamom); border-color: var(--cardamom); color: white; }
+
+  footer {
+    text-align: center;
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    color: var(--ink-soft);
+    font-size: 12px;
+  }
+  footer .om { color: var(--terracotta); font-size: 14px; }
+
+  /* Empty state */
+  .empty-prompt {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--ink-soft);
+    font-style: italic;
+    font-family: 'Instrument Serif', serif;
+    font-size: 17px;
+  }
+
+  /* Favorites bar */
+  .fav-bar {
+    background: var(--paper);
+    border: 1px dashed var(--line);
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin-bottom: 32px;
+  }
+  .fav-bar.hidden { display: none; }
+  .fav-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .fav-title {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 22px;
+    color: var(--ink);
+  }
+  .fav-list { display: flex; flex-wrap: wrap; gap: 8px; }
+  .fav-chip {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 6px 6px 6px 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .fav-chip:hover { border-color: var(--terracotta); }
+  .fav-chip-name { font-weight: 500; }
+  .fav-chip-meta { color: var(--ink-soft); font-size: 11px; }
+  .fav-chip-del {
+    background: transparent;
+    border: none;
+    color: var(--ink-soft);
+    cursor: pointer;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    margin-left: 2px;
+  }
+  .fav-chip-del:hover { background: var(--terracotta); color: white; }
+
+  /* Number stepper */
+  .stepper {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: #fff;
+    overflow: hidden;
+  }
+  .stepper-btn {
+    background: transparent;
+    border: none;
+    width: 38px; height: 38px;
+    font-size: 18px;
+    cursor: pointer;
+    color: var(--ink);
+    font-family: inherit;
+    transition: background 0.15s ease;
+  }
+  .stepper-btn:hover { background: var(--bg); }
+  .stepper-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+  .stepper-value {
+    min-width: 50px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 15px;
+    border-left: 1px solid var(--line);
+    border-right: 1px solid var(--line);
+    padding: 0 14px;
+    line-height: 38px;
+    background: var(--paper);
+  }
+  .stepper-label {
+    margin-left: 10px;
+    color: var(--ink-soft);
+    font-size: 13px;
+  }
+
+  /* Oven-only indicator (replaces equipment pills for oven-bound dishes) */
+  .oven-info {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 16px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--saffron) 18%, transparent);
+    border: 1px solid color-mix(in srgb, var(--saffron) 40%, transparent);
+    color: var(--ink);
+    font-size: 14px;
+    font-style: italic;
+  }
+
+  /* Pantry */
+  .pantry-group { margin-bottom: 16px; }
+  .pantry-sublabel {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-soft);
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  .pantry-sublabel .icon { color: var(--terracotta); margin-right: 4px; }
+  .pantry-note {
+    margin-top: 4px;
+    padding: 12px 14px;
+    background: color-mix(in srgb, var(--saffron) 8%, transparent);
+    border-left: 3px solid var(--saffron);
+    border-radius: 4px;
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+  .pantry-note strong { color: var(--ink); font-weight: 600; }
+
+  /* Pantry-status badges on ingredients */
+  .ing-status {
+    display: inline-block;
+    font-size: 9.5px;
+    padding: 2px 7px;
+    border-radius: 8px;
+    margin-left: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+    vertical-align: middle;
+  }
+  .ing-status.empfohlen { background: var(--terracotta); color: white; }
+  .ing-status.good { background: var(--saffron); color: var(--ink); }
+  .ing-substitute {
+    display: block;
+    font-size: 11.5px;
+    color: var(--ink-soft);
+    font-style: italic;
+    margin-top: 2px;
+    line-height: 1.4;
+  }
+  .ing-substitute::before { content: '→ '; color: var(--terracotta); font-style: normal; }
+
+  /* Save favorite button on recipe card */
+  .recipe-actions {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+  }
+  .btn-fav {
+    border: 1px solid var(--terracotta);
+    background: white;
+    color: var(--terracotta);
+    padding: 8px 14px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.15s ease;
+  }
+  .btn-fav:hover { background: var(--terracotta); color: white; }
+  .btn-fav.saved { background: var(--terracotta); color: white; }
+
+  /* Modal */
+  .modal-bg {
+    position: fixed; inset: 0;
+    background: rgba(42, 24, 16, 0.5);
+    display: none;
+    align-items: center; justify-content: center;
+    z-index: 100;
+    padding: 20px;
+  }
+  .modal-bg.show { display: flex; }
+  .modal {
+    background: var(--paper);
+    border-radius: 8px;
+    padding: 28px;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 20px 60px rgba(42, 24, 16, 0.3);
+  }
+  .modal h3 {
+    margin-top: 0;
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 26px;
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--ink);
+  }
+  .modal input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 15px;
+    background: white;
+    margin: 12px 0 18px;
+  }
+  .modal input:focus { outline: none; border-color: var(--terracotta); }
+  .modal-actions { display: flex; gap: 8px; justify-content: flex-end; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="eyebrow">Ein persönliches Kochbuch</div>
+    <h1>Desi <span class="amp">&</span> Deutsch</h1>
+    <p class="tagline">Indische Hausmannskost mit Zutaten aus dem deutschen Supermarkt — Rezept zum Mitkochen, Prompt für KI-Hilfe beim Kochen.</p>
+    <div class="divider">✦</div>
+  </header>
+
+  <div class="fav-bar hidden" id="fav-bar">
+    <div class="fav-header">
+      <div class="fav-title">♥ Deine Favoriten</div>
+    </div>
+    <div class="fav-list" id="fav-list"></div>
+  </div>
+
+  <section>
+    <h2><span class="section-num">01.</span>Was möchtest du kochen?</h2>
+    <div class="cat-field">
+      <div class="cat-select-wrap">
+        <select id="cat-select" class="cat-select" aria-label="Kategorie auswählen">
+          <option value="" disabled selected>— wähle eine Kategorie —</option>
+        </select>
+      </div>
+      <div id="cat-description" class="cat-description"></div>
+    </div>
+  </section>
+
+  <section id="options-section" class="hidden-aware">
+    <h2><span class="section-num">02.</span>Optionen</h2>
+    <div class="panel" id="options-panel"></div>
+  </section>
+
+  <section id="kit-section" class="hidden-aware">
+    <h2><span class="section-num">03.</span>Herd, Portionen &amp; Vorratsschrank</h2>
+    <div class="panel">
+      <div class="field">
+        <span class="field-label">Herd</span>
+        <div class="pill-group" id="kit-equipment"></div>
+      </div>
+      <div class="field" id="servings-field">
+        <span class="field-label">Portionen</span>
+        <div class="stepper" id="kit-stepper">
+          <button class="stepper-btn" id="serv-minus">−</button>
+          <span class="stepper-value" id="serv-value">4</span>
+          <button class="stepper-btn" id="serv-plus">+</button>
+        </div>
+        <span class="stepper-label">Personen (1–12)</span>
+      </div>
+      <div class="field" id="puff-scale-field" style="display:none">
+        <span class="field-label">Blätterteig-Rollen</span>
+        <div class="stepper" id="puff-stepper">
+          <button class="stepper-btn" id="sheets-minus">−</button>
+          <span class="stepper-value" id="sheets-value">1</span>
+          <button class="stepper-btn" id="sheets-plus">+</button>
+        </div>
+        <span class="stepper-label">Rollen (à ca. 275g)</span>
+        <div style="margin-top:14px">
+          <span class="field-label" style="display:block;margin-bottom:8px">Stücke pro Rolle</span>
+          <div class="pill-group" id="puff-cuts"></div>
+        </div>
+        <div id="puff-total" style="margin-top:12px;font-size:13px;color:var(--ink-soft);font-style:italic"></div>
+      </div>
+      <div class="field" style="margin-bottom:0">
+        <span class="field-label">Vorratsschrank — was du da hast</span>
+        <div class="pantry-group">
+          <div class="pantry-sublabel"><span class="icon">●</span>Tickbar — verändern, wie das Rezept gewürzt wird</div>
+          <div class="pill-group" id="pantry-empfohlen"></div>
+        </div>
+        <div class="pantry-note">
+          <strong>Andere Gewürzmischungen?</strong> Hast du Tandoori Masala, Chicken Curry Masala, Chaat Masala, Maggi Masala, Peri Peri o. Ä. zu Hause? Gib einfach <strong>½–1 TL</strong> hinzu und schmecke ab — wie bei Salz oder Chili. Anpassen nach Geschmack.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="actions">
+    <button class="btn-generate" id="btn-generate" disabled>Rezept &amp; Prompt erstellen</button>
+  </div>
+
+  <section class="output hidden" id="output">
+    <div class="output-grid">
+      <div class="recipe-card" id="recipe-card"></div>
+      <div class="prompt-card" id="prompt-card"></div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="om">ॐ</div>
+    <div>Ein persönliches Bastelprojekt · keine Backend, kein Tracking, alles offline lauffähig</div>
+  </footer>
+</main>
+
+<button id="back-to-top" class="back-to-top" aria-label="Nach oben">↑</button>
+
+<div class="modal-bg" id="fav-modal">
+  <div class="modal">
+    <h3>Als Favorit speichern</h3>
+    <p style="font-size:13px;color:var(--ink-soft);margin:0">Gib deinem Rezept einen Namen, damit du es später schnell wiederfindest.</p>
+    <input type="text" id="fav-name-input" placeholder="z.B. 'Sonntags-Aloo-Curry'" maxlength="60" />
+    <div class="modal-actions">
+      <button class="btn" id="fav-cancel">Abbrechen</button>
+      <button class="btn btn-primary" id="fav-save">Speichern</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/desi-kueche@1.0.0/desi-kueche.js"></script>
+</body>
+</html>
